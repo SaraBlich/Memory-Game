@@ -1,0 +1,96 @@
+body
+{
+  background-image: url("img/crissXcross.png");
+  font-family: 'Marck Script', cursive;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  color:#F0DF26;
+  font-size: 25px;
+}
+
+a:link
+{
+  color: #F0DF26;
+  text-decoration: none;
+}
+
+a:visited
+{
+  color: #F0DF26;
+}
+
+a:active
+{
+  color: #F0DF26;
+}
+
+a:hover
+{
+  color: #D0BC04;
+}
+
+h1
+{
+  font-size: 64px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 5px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.white
+{
+  color: white;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+}
+
+.board
+{
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.card
+{
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  margin:3px;
+  background-image: url("img/yellow-pattern.jpg");
+  border: 5px solid #463D43;
+  border-radius: 5px;
+  cursor: pointer;
+  filter: brightness(70%);
+  transition: all .3s ease-in-out;
+}
+
+.cardActive
+{
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  margin:3px;
+  border: 5px solid white;
+  border-radius: 5px;
+  filter: brightness(100%);
+  transition: all .3s ease-in-out;
+
+}
+
+
+.card:hover{
+  border: 5px solid white;
+  filter: brightness(100%);
+}
+
+.score
+{
+  letter-spacing: 3px;
+  font-size: 28px;
+}

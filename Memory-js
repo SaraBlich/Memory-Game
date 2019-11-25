@@ -1,0 +1,115 @@
+var cards = ["piesek.jpg", "kotek.jpg", "plaz.jpg","gad.jpg", "gad.jpg", "ptak.jpg", "kotek.jpg", "ptak.jpg", "ryba.jpg", "piesek.jpg", "plaz.jpg", "ryba.jpg"];
+
+var c0 = document.getElementById('c0');
+var c1 = document.getElementById('c1');
+var c2 = document.getElementById('c2');
+var c3 = document.getElementById('c3');
+var c4 = document.getElementById('c4');
+var c5 = document.getElementById('c5');
+var c6 = document.getElementById('c6');
+var c7 = document.getElementById('c7');
+var c8 = document.getElementById('c8');
+var c9 = document.getElementById('c9');
+var c10 = document.getElementById('c10');
+var c11 = document.getElementById('c11');
+
+
+c0.addEventListener("click", function(){showCard(0)});
+c1.addEventListener("click", function(){showCard(1)});
+c2.addEventListener("click", function(){showCard(2)});
+c3.addEventListener("click", function(){showCard(3)});
+c4.addEventListener("click", function(){showCard(4)});
+c5.addEventListener("click", function(){showCard(5)});
+c6.addEventListener("click", function(){showCard(6)});
+c7.addEventListener("click", function(){showCard(7)});
+c8.addEventListener("click", function(){showCard(8)});
+c9.addEventListener("click", function(){showCard(9)});
+c10.addEventListener("click", function(){showCard(10)});
+c11.addEventListener("click", function(){showCard(11)});
+
+var oneVisible = false; // we need to check if it is the first card or the second one revealed
+
+var turnCounter = 0;
+
+var isBlocked = false; // We block possibility to reveal many cards at the same time before settime goes by. Again, no cheating!
+
+var howManyLeft = 6;
+
+
+
+function showCard(nr)
+{
+  var opacityValue = $("#c"+nr).css('opacity');// important! -> divs dont go away after getting a pair and the counter still works when we click. thats why we check by the opacity value if the cards have already been matched.
+  var filterValue = $("#c"+nr).css('filter'); // To eliminate error that occurs when we click twice at the same card (it matches, so the card goas away without its pair -> adds one point to "turn counter" for cheating!)
+
+  if ((opacityValue != 0) && (isBlocked == false))
+  {
+    isBlocked = true;
+    var image = "url(img/"+cards[nr] + ")";
+
+    $("#c"+nr).css("background-image", image);
+    $("#c"+nr).addClass("cardActive");
+    $("#c"+nr).removeClass("card"); //could use toggleClass
+
+    if(oneVisible==false)
+    {
+      //what happens if its the first card?
+      oneVisible=true;
+      visible_nr = nr;
+      isBlocked = false;
+
+    }
+    else
+    {
+      //what happens if its the second card?
+      if(cards[visible_nr]==cards[nr])
+      {
+        //matches
+        setTimeout(function(){cardHidder(nr, visible_nr)}, 750);
+
+      }
+      else
+      {
+        //missed
+        setTimeout(function(){cardComeback(nr, visible_nr)}, 750);
+      }
+      turnCounter++;
+      $(".score").html("Your score: " + turnCounter);
+      oneVisible = false;
+    }
+  }
+}
+
+
+function cardHidder(first_card, second_card)
+{
+  $("#c"+first_card).css("opacity", "0");
+  $("#c"+second_card).css("opacity", "0");
+
+
+  howManyLeft--;
+  if (howManyLeft==0)
+  {
+    $(".board").html("<h1> You win! Done in " + turnCounter+ " turns.</h1>");
+  }
+
+isBlocked = false;
+}
+
+function cardComeback(first_card, second_card)
+{
+  $("#c"+first_card).css('background-image', "url(img/yellow-pattern.jpg)");
+  $("#c"+first_card).addClass("card");
+  $("#c"+first_card).removeClass("cardActive");
+
+
+
+
+
+  $("#c"+second_card).css("background-image", "url(img/yellow-pattern.jpg)");
+  $("#c"+second_card).addClass("card");
+  $("#c"+second_card).removeClass("cardActive");
+
+  isBlocked = false;
+
+}
